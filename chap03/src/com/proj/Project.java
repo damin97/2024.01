@@ -37,10 +37,10 @@ public class Project {
 				status = 3;
 				System.out.println("로그인 성공");
 			} else {
-				System.out.println("로그인 실패:패스워드가 틀림");
+				System.out.println("로그인 실패: 패스워드가 틀림");
 			}
 		} else {
-			System.out.println("로그인 실패:아이디 존재하지 않음");
+			System.out.println("로그인 실패: 아이디 존재하지 않음");
 		}
 		return status;
 	}

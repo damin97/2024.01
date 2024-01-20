@@ -15,6 +15,7 @@ public class TypeEx {
 		System.out.println(str);
 		
 		String str1 = String.valueOf(10+2); // 문자열로 만들기의 정석
+		System.out.println(str1);
 		
 		int value1 = 10;
 		int value2 = 100;

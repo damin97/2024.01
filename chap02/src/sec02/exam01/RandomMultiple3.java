@@ -13,7 +13,7 @@ public class RandomMultiple3 {
 			Scanner scan = new Scanner(System.in);
 
 			int num1 = rd.nextInt(10) + 1; // 1~10까지 랜덤 정수
-			int num2 = rd.nextInt(99) + 1; // 1~100까지 랜덤 정수
+			int num2 = rd.nextInt(100) + 1; // 1~100까지 랜덤 정수
 
 			System.out.print(num1);
 			System.out.print("x");
