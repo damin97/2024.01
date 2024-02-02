@@ -20,8 +20,8 @@ String sql = "delete from emp1 where ename=?";
 PreparedStatement pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, request.getParameter("ename"));
 pstmt.executeUpdate();
+
+response.sendRedirect("select.jsp");
 %>
-삭제완료!
-<button onclick="location.href='select.jsp' ">사원목록</button>
 </body>
 </html>

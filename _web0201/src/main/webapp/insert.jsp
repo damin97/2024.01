@@ -27,5 +27,8 @@ if(result == 1){
 }
 %><br>
 <button onclick="location.href='select.jsp' ">목록으로</button>
+<%
+response.sendRedirect("select.jsp");
+%>
 </body>
 </html>

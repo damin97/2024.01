@@ -132,7 +132,6 @@ public class CLI {
 		
 		String sql = "update emp set ename = '"+ename+"', job = '"+job+"', mgr = "+mgr+", hiredate = '"+hiredate+"', sal = "+sal+", comm = "+comm+", deptno = "+deptno+" where empno ="+empno;
 		int result = stmt.executeUpdate(sql);
-		System.out.println(result);
 		if(result >= 1) {
 			System.out.println("수정성공!" + result);
 		}else {
