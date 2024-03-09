@@ -8,6 +8,7 @@
 String id = request.getParameter("id");
 String email = request.getParameter("pw");
 String ck = request.getParameter("ck");
+
 if(ck != null && ck.equals("on")) { //쿠키 생성의 경우
 	System.out.println(email);
 	

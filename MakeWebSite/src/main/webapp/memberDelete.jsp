@@ -1,17 +1,29 @@
+<%@page import="dao.MemberDao"%>
+<%@page import="dto.Member"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-Class.forName("oracle.jdbc.driver.OracleDriver");
-Connection conn = DriverManager.getConnection(
-"jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
-String memberno = request.getParameter("memberno");
-String sql = "delete from member where memberno=?";
-PreparedStatement pstmt = conn.prepareStatement(sql);
-pstmt.setString(1, memberno);
+String id = request.getParameter("id");
+Member member = MemberDao.getInstance().select(id);
 
-int res= pstmt.executeUpdate();
-response.sendRedirect("list.jsp");
+Cookie cookie = new Cookie("email", "");
+Cookie cookie2 = new Cookie("id", "");
+cookie.setMaxAge(0); 
+cookie2.setMaxAge(0); 
+response.addCookie(cookie);
+response.addCookie(cookie2);
+
+Cookie cookie3 = new Cookie("admin", "");
+cookie3.setMaxAge(0);  
+response.addCookie(cookie3);
+
+session.invalidate();
+
+MemberDao.getInstance().delete(member);
+
+response.sendRedirect("index.jsp");
+
 %>

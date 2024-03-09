@@ -14,15 +14,17 @@ Member loginMember = (Member)session.getAttribute("member");
 //쿠키에서 admin 쿠키 확인
 Cookie[] cookies = request.getCookies();
 boolean isAdmin = false;
-String action = "list2.jsp";
+String action = "list1.jsp";
 if (cookies != null && cookies.length > 0) {
 	for (Cookie cookie : cookies) {
 		if (cookie.getName().equals("admin") && cookie.getValue().equals(loginMember.getId())) {
 			isAdmin = true;
 			action = "list3.jsp";
 			
-		}
- }
+		}else {
+    		action = "list2.jsp";
+     }
+	}
 }
 
 String memberId = (String) session.getAttribute("userId");
@@ -31,6 +33,14 @@ if (memberId == null) {
 }
 BoardDao dao = BoardDao.getInstance(); // 객체 불러오기
 List<Board> list = dao.selectList(); // selectList() 호출
+//선택한 옵션에 따라 게시글 필터링
+String selectedOption = request.getParameter("filterOption");
+if ("1".equals(selectedOption)) {
+  // 옵션이 "1"일 경우 전체 글을 가져오기
+  list = dao.selectList();
+}else if ("2".equals(selectedOption)) {
+	list = dao.selectBestList();
+}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -58,12 +68,9 @@ List<Board> list = dao.selectList(); // selectList() 호출
 			</h1>
 
 			<ul id="gnb">
-
 				<li><a href="<%=action%>">ESSAY</a></li>
-				<li><a href="b.jsp?name=홍길동">GALLERY</a></li>
-				<li><a href="#">YOUTUBE</a></li>
-				<li><a href=" bootstrap1.jsp">COMMUNITY</a></li>
-				<li><a href="#">LOCATION</a></li>
+				<li><a href="list.jsp">MEMBER</a></li>
+				<li><a href="#">GALLERY</a></li>
 			</ul>
 
 			<ul class="util">
@@ -72,26 +79,27 @@ List<Board> list = dao.selectList(); // selectList() 호출
 					// 로그인 상태일 때의 출력
 				%>
 				<form action="logout.jsp" method="post">
-					<%=(String) session.getAttribute("userId")%>님 로그인 <input
-						type="submit" value="로그아웃"> <input type="button"
-						value="회원정보 수정"
-						onclick="window.open('member_update_form.jsp', 'popup', 
-                                        'width=400, height=200')">
+					<%=(String) session.getAttribute("userId")%>님 로그인
+					<button type="button" class="btn btn-light btn-sm" onclick="location.href='logout.jsp'">로그아웃</button>
+					<button type="button" class="btn btn-light btn-sm" onclick="location.href='member_update_form.jsp'">회원정보 수정</button>
 				</form>
 				<% } else { %>
 				<!-- 로그인 상태가 아닐 때-->
 				<li><a href="loginForm.jsp">Login</a></li>
+				<li><a href="memberJoinForm.jsp">Sign up</a></li>
 				<% } %>
 			</ul>
 		</div>
 	</header>
   
-<section>
-<div class="inner" style="padding-top: 50px;">
-<select class="form-select" aria-label="Default select example" name="filterOption">
-  <option selected>전체보기</option>
+<div class="inner" style="padding-top: 50px; width:60%; margin:auto;">
+<form id="filterForm" method="post" action="list3.jsp">
+<select class="form-select" aria-label="Default select example" name="filterOption" onchange="submitForm()">
+  <option value="0" selected>옵션 선택하기</option>
+  <option value="1">전체글 보기</option>
   <option value="2">인기글 보기</option>
 </select><br>
+</form>
 	<table class="table table-bordered table-hover">
 		<thead>
 		<tr>
@@ -132,12 +140,17 @@ List<Board> list = dao.selectList(); // selectList() 호출
 	<br>
 	<button type="button" class="btn btn-dark" onclick="location.href='write.jsp'">글쓰기</button>
 </div>
+<script>
+        function submitForm() {
+        	
+            document.getElementById("filterForm").submit();
+        }
+    </script>
 <script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
 		crossorigin="anonymous">
 	</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-  </section>
   </body>
 </html>

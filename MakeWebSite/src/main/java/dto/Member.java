@@ -6,6 +6,13 @@ public class Member {
 	private String email;
 	private String name;
 	
+	public Member(String id, String email, String name) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+	}
+
 	public Member(int memberno, String id, String email, String name) {
 		super();
 		this.memberno = memberno;

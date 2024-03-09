@@ -27,7 +27,7 @@ board.setName(name);
 <form method="post" action="update.jsp">
     <div class="mb-3">
 				<label for="titleInput" class="form-label">NUM</label> 
-				<input type="text" name="num" maxlength="80" value="<%=board.getNum()%>" class="form-control" id="titleInput">
+				<input type="text" readonly name="num" maxlength="80" value="<%=board.getNum()%>" class="form-control" id="titleInput">
 			</div>
     <div class="mb-3">
 				<label for="titleInput" class="form-label">TITLE</label> 
@@ -35,7 +35,7 @@ board.setName(name);
 			</div>
 			<div class="mb-3">
 				<label for="writerInput" class="form-label">WRITER</label>
-				<input type="text" name="name" maxlength="20" value="<%=board.getName()%>" class="form-control" id="writerInput">
+				<input type="text" readonly name="name" maxlength="20" value="<%=board.getName()%>" class="form-control" id="writerInput">
 			</div>
 			<div class="mb-3">
 				<label for="contentInput" class="form-label">CONTENT</label> 

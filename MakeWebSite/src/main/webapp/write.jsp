@@ -1,3 +1,4 @@
+<%@page import="dto.Member"%>
 <%@page import="dto.Board"%>
 <%@page import="dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,9 +11,11 @@
     String tmp = request.getParameter("num");
     int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp)// 참일 때
                                                 : 0; // 참이 아닐 때
-
+    
+    
+    Member loginMember = (Member)session.getAttribute("member");
     // 새 글쓰기 모드를 가정하고 변수 초기값 설정
-    String name  = "";
+    String name  = loginMember.getName();
     String title   = "";
     String content = "";
     String action  = "insert.jsp";
@@ -57,7 +60,7 @@
 			</div>
 			<div class="mb-3">
 				<label for="contentInput" class="form-label">CONTENT</label> 
-				<input type="text" name="content" rows="10" class="form-control" id="contentInput" placeholder="텍스트를 입력해주세요">
+				<input type="text" name="content" rows="10" value="<%=content%>" class="form-control" id="contentInput" placeholder="텍스트를 입력해주세요">
 			</div>
 			<button class="btn btn-dark">등록하기</button>
 </form>

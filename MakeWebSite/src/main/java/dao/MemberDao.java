@@ -108,7 +108,31 @@ public class MemberDao {
 		return 0;
 	}
 	
-	public ArrayList<Member> selectAll(Connection conn){
+	public int delete(Member member) {
+
+		String sql = "delete from member where memberno=?";
+		String sql2 = "delete from board where memberno=?";
+		
+		try (PreparedStatement pstmt2 = conn.prepareStatement(sql2)) {
+			pstmt2.setInt(1, member.getMemberno());
+			pstmt2.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setInt(1, member.getMemberno());
+			return pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return 0;
+	}
+	
+	public ArrayList<Member> selectList(){
 		ArrayList<Member> list = new ArrayList<>();
 		
 		String sql = "select * from member";

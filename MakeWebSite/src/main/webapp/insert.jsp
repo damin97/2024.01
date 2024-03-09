@@ -38,8 +38,10 @@ Board board = new Board(name, title, content);
 //dao.insert(board);
 Member member = (Member)session.getAttribute("member");
 board.setMemberno(member.getMemberno());
+System.out.println(board.getMemberno());
+System.out.println(member);
 int result = dao.insert(board);
-
+System.out.println(result);
 // 목록보기 화면으로 돌아감
 response.sendRedirect("list2.jsp");
 %>

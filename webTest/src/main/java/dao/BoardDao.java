@@ -28,7 +28,7 @@ public class BoardDao { // 싱글턴은 객체를 단 하나만 생성하겠다�
 	private static void getConnection() {// 외부에서 접속 불가
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project1", "root", "mysql");
+			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/project2", "root", "mysql");
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

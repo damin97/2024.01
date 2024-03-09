@@ -21,9 +21,5 @@ dao.delete(num);
 %>
 <script>
 alert('삭제 되었습니다.')
-location.href="list2.jsp";
+location.href="list3.jsp";
 </script>
-<%
-//목록보기 화면으로 돌아감
-response.sendRedirect("list2.jsp");
-%>

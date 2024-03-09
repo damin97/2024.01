@@ -4,6 +4,10 @@
 <%
     session.removeAttribute("userId"  );
     session.removeAttribute("userEmail");
-
-    response.sendRedirect("loginForm.jsp"); // 로그인 메인 화면으로
+	
+    Cookie cookie = new Cookie("admin", null);
+	cookie.setMaxAge(0);  
+	response.addCookie(cookie);
+    
+    response.sendRedirect("index.jsp"); // 로그인 메인 화면으로
 %> 

@@ -17,7 +17,7 @@
  
      // 빈 칸이 하나라도 있으면 오류 출력하고 종료
      if (name  == null || name.length()  == 0 ||
-         title   == null || title.length()   == 0 ||
+         title   == null || title.trim().length()   == 0 ||
          content == null || content.length() == 0) {
  %>      
          <script>

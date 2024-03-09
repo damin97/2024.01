@@ -1,3 +1,5 @@
+<%@page import="dto.Member"%>
+<%@page import="dao.MemberDao"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
@@ -20,14 +22,6 @@ if(cookies != null){
 		}
 	}
 }
-%>
-<%
-Class.forName("oracle.jdbc.driver.OracleDriver");
-Connection conn = DriverManager.getConnection(
-"jdbc:oracle:thin:@localhost:1521:xe", "scott", "tiger");
-String sql = "select * from member";
-PreparedStatement pstmt = conn.prepareStatement(sql);
-ResultSet rs = pstmt.executeQuery();
 %>
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
@@ -166,7 +160,7 @@ ResultSet rs = pstmt.executeQuery();
 			</div>
 			
 			<button class="btn btn-dark w-100 py-2" type="submit">로그인</button><br><br>
-			<button class="btn btn-secondary w-100 py-2" type="submit" onClick="location.href='member_join_form.jsp'">회원가입</button>
+			<button class="btn btn-secondary w-100 py-2" type="button" onClick="location.href='memberJoinForm.jsp'">회원가입</button>
 			<p class="mt-5 mb-3 text-body-secondary">&copy; DAMIN KIM</p>
 		</form>
 		
