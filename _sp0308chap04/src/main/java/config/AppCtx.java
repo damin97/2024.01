@@ -1,5 +1,6 @@
 package config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,13 +29,19 @@ public class AppCtx {
 		return new ChangePasswordService();
 	}
 //	@Bean
-//	public MemberPrinter memberPrinter1() {
+//	public MemberPrinter memberPrinter() {
 //		return new MemberPrinter();
 //	}
-//	@Bean
-//	public MemberSummaryPrinter memberPrinter2() {
-//		return new MemberSummaryPrinter();
-//	}
+	@Bean
+	@Qualifier("printer")
+	public MemberPrinter memberPrinter1() {
+		return new MemberPrinter();
+	}
+	@Bean
+	@Qualifier("summaryPrinter")
+	public MemberSummaryPrinter memberPrinter2() {
+		return new MemberSummaryPrinter();
+	}
 	@Bean
 	public MemberListPrinter listPrinter() {
 		return new MemberListPrinter();

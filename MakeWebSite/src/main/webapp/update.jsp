@@ -1,4 +1,5 @@
- <%@page import="dto.Board"%>
+<%@page import="dto.Member"%>
+<%@page import="dto.Board"%>
 <%@page import="dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
      pageEncoding="UTF-8"%>
@@ -32,7 +33,25 @@
      Board board = new Board(num, name, title, content);
      dao.update(board);
      
-     // 글 보기 화면으로 돌아감
-     response.sendRedirect("list2.jsp?num=" + num);
+     Cookie[] cookies = request.getCookies();
+     Member loginMember = (Member) session.getAttribute("member");
+     boolean isAdmin = false;
+
+     if (cookies != null && cookies.length > 0) {
+         for (Cookie cookie : cookies) {
+             if (cookie.getName().equals("admin") && cookie.getValue().equals(loginMember.getId())) {
+                 isAdmin = true;
+                 break;
+             }
+         }
+     }
+
+     if (isAdmin) {
+         response.sendRedirect("list3.jsp?num=" + num);
+     } else {
+         response.sendRedirect("list2.jsp?num=" + num);
+         // 여기서 루프 밖에서 바로 리다이렉트를 수행하도록 수정
+     }
+     
  %>     
  

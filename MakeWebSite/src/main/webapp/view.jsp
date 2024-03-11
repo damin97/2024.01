@@ -1,3 +1,4 @@
+<%@page import="dto.Member"%>
 <%@page import="dto.Board"%>
 <%@page import="dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -18,6 +19,7 @@ String title   = "";
 String content = "";
 String regtime = "";
 int    hits    = 0;
+String action = "list2.jsp";
 
 BoardDao dao = BoardDao.getInstance();
 Board board = dao.selectOne(num, true);
@@ -32,6 +34,23 @@ hits = board.getHits();
 // 공백과 줄 바꿈 처리
 title   = title.replace  (" ", "&nbsp;");
 content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
+
+Cookie[] cookies = request.getCookies();
+Member loginMember = (Member) session.getAttribute("member");
+boolean isAdmin = false;
+
+if (cookies != null && cookies.length > 0) {
+    for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("admin") && cookie.getValue().equals(loginMember.getId())) {
+            isAdmin = true;
+            break;
+        }
+    }
+}
+
+if (isAdmin) {
+    action = "list3.jsp";
+}
 %>
 
 <!DOCTYPE html>
@@ -47,7 +66,7 @@ content = content.replace(" ", "&nbsp;").replace("\n", "<br>");
 </head>
 <body>
 <div class="container" style="padding-top: 50px">
-<form method="post" action="list2.jsp">
+<form method="post" action="<%=action%>">
     		<div class="mb-3 row">
 				<label for="titleInput" class="col-sm-2 col-form-label">TITLE</label> 
 				<div class="col-sm-10">

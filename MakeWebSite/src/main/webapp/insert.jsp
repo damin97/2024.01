@@ -42,6 +42,23 @@ System.out.println(board.getMemberno());
 System.out.println(member);
 int result = dao.insert(board);
 System.out.println(result);
-// 목록보기 화면으로 돌아감
-response.sendRedirect("list2.jsp");
+Cookie[] cookies = request.getCookies();
+Member loginMember = (Member) session.getAttribute("member");
+boolean isAdmin = false;
+
+if (cookies != null && cookies.length > 0) {
+    for (Cookie cookie : cookies) {
+        if (cookie.getName().equals("admin") && cookie.getValue().equals(loginMember.getId())) {
+            isAdmin = true;
+            break;
+        }
+    }
+}
+
+if (isAdmin) {
+    response.sendRedirect("list3.jsp");
+} else {
+    response.sendRedirect("list2.jsp");
+    // 여기서 루프 밖에서 바로 리다이렉트를 수행하도록 수정
+}
 %>
